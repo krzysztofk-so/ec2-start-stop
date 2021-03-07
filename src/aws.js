@@ -76,7 +76,7 @@ async function waitForInstanceRunning(ec2InstanceId) {
 
 module.exports = {
   startEc2Instance,
-  stopEc2Instances,
-  //terminateEc2Instance,
+  //stopEc2Instances,
+  terminateEc2Instance,
   waitForInstanceRunning,
 };
