@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+/*const AWS = require('aws-sdk');
 const core = require('@actions/core');
 const config = require('./config');
 
@@ -19,7 +19,7 @@ async function startEc2Instance(label, githubRegistrationToken) {
 
   const params = {
     InstanceIds: [i-0820fc579e7aa0cb9],
-    /*ImageId: config.input.ec2ImageId,
+    ImageId: config.input.ec2ImageId,
     InstanceType: config.input.ec2InstanceType,
     MinCount: 1,
     MaxCount: 1,
@@ -27,7 +27,7 @@ async function startEc2Instance(label, githubRegistrationToken) {
     SubnetId: config.input.subnetId,
     SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
-    TagSpecifications: config.tagSpecifications,*/
+    TagSpecifications: config.tagSpecifications,
   };
   
   try {
@@ -38,7 +38,7 @@ async function startEc2Instance(label, githubRegistrationToken) {
   } catch (error) {
     core.error('AWS EC2 instance starting error');
     throw error;
-  }
+  }*/
  /* try {
     const result = await ec2.runInstances(params).promise();
     const ec2InstanceId = result.Instances[0].InstanceId;
@@ -51,7 +51,7 @@ async function startEc2Instance(label, githubRegistrationToken) {
   
 }
 
-async function terminateEc2Instance() {
+/*async function terminateEc2Instance() {
   const ec2 = new AWS.EC2();
 
   const params = {
@@ -90,4 +90,4 @@ module.exports = {
   //stopEc2Instances,
   terminateEc2Instance,
   waitForInstanceRunning,
-};
+};*/
