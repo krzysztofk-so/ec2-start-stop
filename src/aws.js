@@ -18,7 +18,8 @@ async function startEc2Instance(label, githubRegistrationToken) {
   ];
 
   const params = {
-    ImageId: config.input.ec2ImageId,
+    InstanceIds: [i-0820fc579e7aa0cb9],
+    /*ImageId: config.input.ec2ImageId,
     InstanceType: config.input.ec2InstanceType,
     MinCount: 1,
     MaxCount: 1,
@@ -26,10 +27,19 @@ async function startEc2Instance(label, githubRegistrationToken) {
     SubnetId: config.input.subnetId,
     SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
-    TagSpecifications: config.tagSpecifications,
+    TagSpecifications: config.tagSpecifications,*/
   };
-
+  
   try {
+     const result = await ec2.startInstances(params).promise();
+     const ec2InstanceId = result.Instances[0].InstanceId;
+     core.info(`AWS EC2 instance ${ec2InstanceId} is started`);
+    return ec2InstanceId;
+  } catch (error) {
+    core.error('AWS EC2 instance starting error');
+    throw error;
+  }
+ /* try {
     const result = await ec2.runInstances(params).promise();
     const ec2InstanceId = result.Instances[0].InstanceId;
     core.info(`AWS EC2 instance ${ec2InstanceId} is started`);
@@ -37,22 +47,23 @@ async function startEc2Instance(label, githubRegistrationToken) {
   } catch (error) {
     core.error('AWS EC2 instance starting error');
     throw error;
-  }
+  }*/
+  
 }
 
 async function terminateEc2Instance() {
   const ec2 = new AWS.EC2();
 
   const params = {
-    InstanceIds: [config.input.ec2InstanceId],
+    InstanceIds: [i-0820fc579e7aa0cb9],
   };
 
   try {
-    await ec2.terminateInstances(params).promise();
-    core.info(`AWS EC2 instance ${config.input.ec2InstanceId} is terminated`);
+    await ec2.stopInstances(params).promise();
+    core.info(`AWS EC2 instance ${config.input.ec2InstanceId} is stopped`);
     return;
   } catch (error) {
-    core.error(`AWS EC2 instance ${config.input.ec2InstanceId} termination error`);
+    core.error(`AWS EC2 instance ${config.input.ec2InstanceId} error`);
     throw error;
   }
 }
@@ -61,7 +72,7 @@ async function waitForInstanceRunning(ec2InstanceId) {
   const ec2 = new AWS.EC2();
 
   const params = {
-    InstanceIds: [ec2InstanceId],
+    InstanceIds: [i-0820fc579e7aa0cb9],
   };
 
   try {
